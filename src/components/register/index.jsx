@@ -2,6 +2,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../api/requests";
 
 export const Register = () => {
   const schema = yup.object().shape({
@@ -23,10 +24,10 @@ export const Register = () => {
       .matches(/[1-9]/, "deve conter pelo menos um numero!")
       .min(8, "deve ter no minimo 8 digitos!"),
 
-    confirmPassword: yup
-      .string()
-      .required("nescessario confirmar a senha!")
-      .oneOf([yup.ref("password"), null], "as senhas devem ser identicas"),
+    // confirmPassword: yup
+    //   .string()
+    //   .required("nescessario confirmar a senha!")
+    //   .oneOf([yup.ref("password"), null], "as senhas devem ser identicas"),
 
     bio: yup.string().required("biografia obrigatoria!"),
 
@@ -42,7 +43,7 @@ export const Register = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    createUser(data);
   };
 
   return (
@@ -74,14 +75,14 @@ export const Register = () => {
         </label>
 
         <p>{errors.confirmPassword?.message}</p>
-        <label htmlFor="">
+        {/* <label htmlFor="">
           Confirmar Senha
           <input
             type="password"
             placeholder="Digite novamente sua senha"
             {...register("confirmPassword")}
           />
-        </label>
+        </label> */}
 
         <p>{errors.bio?.message}</p>
         <label htmlFor="">
@@ -104,9 +105,15 @@ export const Register = () => {
         </label>
 
         <span>Selecionar Modulo</span>
-        <select name="" id="">
-          <option value="1">1 modulo</option>
-          <option value="2">2 modulo</option>
+        <select name="" id="" {...register("course_module")}>
+          <option value="Primeiro módulo (Introdução ao Frontend)">
+            1 modulo
+          </option>
+          <option value="Segundo módulo (Frontend Avançado)">2 modulo</option>
+          <option value="Terceiro módulo (Introdução ao Backend)">
+            3 modulo
+          </option>
+          <option value="Quarto módulo (Backend Avançado)">4 modulo</option>
         </select>
 
         <button type="submit">Cadastrar</button>
