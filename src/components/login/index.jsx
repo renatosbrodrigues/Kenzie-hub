@@ -2,6 +2,13 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { handleLogin } from "../../api/requests";
+import { LoginContainer } from "./styles";
+import { GlobalStyles } from "../../globalstyling";
+import logo from "../../assets/KenzieHubLogo.png";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export const Login = () => {
   const schema = yup.object().shape({
@@ -22,23 +29,28 @@ export const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    handleLogin(data);
+    if (!handleLogin) {
+      console.log("deu errado");
+    }
   };
-
   const navigate = useNavigate();
 
   return (
-    <div className="loginContainer  styledComponent">
+    <LoginContainer>
+      <GlobalStyles></GlobalStyles>
+      <img src={logo} alt="" />
       <form action="" onSubmit={handleSubmit(onSubmit)}>
-        <p>{errors.email?.message}</p>
+        <h1>Login</h1>
         <label>
           Email
+          <p>{errors.email?.message}</p>
           <input type="email" placeholder="seu email" {...register("email")} />
         </label>
 
-        <p>{errors.password?.message}</p>
         <label>
           Senha
+          <p>{errors.password?.message}</p>
           <input
             type="password"
             placeholder="sua senha"
@@ -46,11 +58,14 @@ export const Login = () => {
           />
         </label>
 
-        <button type="submit">Entrar</button>
+        <button className="loginButton" type="submit">
+          Entrar
+        </button>
 
         <span>ainda nao tem uma conta?</span>
 
         <button
+          className="register"
           type="button"
           onClick={() => {
             navigate("register");
@@ -59,6 +74,17 @@ export const Login = () => {
           Cadastrar
         </button>
       </form>
-    </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      ></ToastContainer>
+    </LoginContainer>
   );
 };

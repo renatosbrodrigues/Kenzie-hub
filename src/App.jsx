@@ -9,7 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />}></Route>
       <Route path="register" element={<Register />}></Route>
-      <Route path="Dashboard" element={<DashBoard />}></Route>
+      <Route path="Dashboard/:name" element={<DashBoard />}></Route>
       <Route path="*" element={<NotFound />}></Route>
     </Routes>
   );

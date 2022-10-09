@@ -1,8 +1,12 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
 import { createUser } from "../../api/requests";
+import { GlobalStyles } from "../../globalstyling";
+import { RegisterContainer } from "./styles";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/KenzieHubLogo.png";
+import { ToastContainer } from "react-toastify";
 
 export const Register = () => {
   const schema = yup.object().shape({
@@ -24,10 +28,10 @@ export const Register = () => {
       .matches(/[1-9]/, "deve conter pelo menos um numero!")
       .min(8, "deve ter no minimo 8 digitos!"),
 
-    // confirmPassword: yup
-    //   .string()
-    //   .required("nescessario confirmar a senha!")
-    //   .oneOf([yup.ref("password"), null], "as senhas devem ser identicas"),
+    confirmPassword: yup
+      .string()
+      .required("nescessario confirmar a senha!")
+      .oneOf([yup.ref("password"), null], "as senhas devem ser identicas"),
 
     bio: yup.string().required("biografia obrigatoria!"),
 
@@ -46,27 +50,41 @@ export const Register = () => {
     createUser(data);
   };
 
+  const navigate = useNavigate();
+
   return (
-    <div className="registerContainer styledComponent">
+    <RegisterContainer>
+      <GlobalStyles></GlobalStyles>
+      <div className="headingContainer">
+        <img src={logo} alt="" />
+        <button
+          type="button"
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          voltar
+        </button>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Crie sua Conta</h1>
         <p>rapido e gratis, vamos nessa</p>
 
-        <p>{errors.name?.message}</p>
         <label htmlFor="">
           nome
+          <p>{errors.name?.message}</p>
           <input type="text" placeholder="Seu nome" {...register("name")} />
         </label>
 
-        <p>{errors.email?.message}</p>
         <label htmlFor="">
           Email
+          <p>{errors.email?.message}</p>
           <input type="email" placeholder="Seu Email" {...register("email")} />
         </label>
 
-        <p>{errors.password?.message}</p>
         <label htmlFor="">
           Senha
+          <p>{errors.password?.message}</p>
           <input
             type="password"
             placeholder="Sua senha"
@@ -74,19 +92,19 @@ export const Register = () => {
           />
         </label>
 
-        <p>{errors.confirmPassword?.message}</p>
-        {/* <label htmlFor="">
+        <label htmlFor="">
           Confirmar Senha
+          <p>{errors.confirmPassword?.message}</p>
           <input
             type="password"
             placeholder="Digite novamente sua senha"
             {...register("confirmPassword")}
           />
-        </label> */}
+        </label>
 
-        <p>{errors.bio?.message}</p>
         <label htmlFor="">
           Bio
+          <p>{errors.bio?.message}</p>
           <input
             type="text"
             placeholder="Fale sobre voce"
@@ -94,9 +112,9 @@ export const Register = () => {
           />
         </label>
 
-        <p>{errors.contact?.message}</p>
         <label htmlFor="">
           Contato
+          <p>{errors.contact?.message}</p>
           <input
             type="text"
             placeholder="Opcao de contato"
@@ -118,6 +136,17 @@ export const Register = () => {
 
         <button type="submit">Cadastrar</button>
       </form>
-    </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      ></ToastContainer>
+    </RegisterContainer>
   );
 };
