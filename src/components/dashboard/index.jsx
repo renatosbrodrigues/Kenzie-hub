@@ -15,7 +15,6 @@ export const DashBoard = () => {
 
   return (
     <DashBoardContainer>
-      <GlobalStyles></GlobalStyles>
       <header>
         <img src={logo} alt="" />{" "}
         <button

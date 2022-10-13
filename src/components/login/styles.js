@@ -38,7 +38,7 @@ export const LoginContainer = styled.div`
   }
 
   input,
-  .register,
+  a,
   .loginButton {
     max-width: 370px;
     width: 300px;
@@ -54,10 +54,14 @@ export const LoginContainer = styled.div`
     outline: 1px solid var(--color-primary);
   }
 
-  .register {
+  a {
     background-color: var(--gray-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
   }
-  .register:hover {
+  a:hover {
     filter: brightness(0.9);
     cursor: pointer;
   }

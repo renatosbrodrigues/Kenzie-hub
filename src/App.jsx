@@ -1,17 +1,24 @@
-import { Routes, Route } from "react-router-dom";
-import { DashBoard } from "./components/dashboard";
-import { Login } from "./components/login";
-import { NotFound } from "./components/notFound";
-import { Register } from "./components/register";
+import { GlobalStyles } from "./globalstyling";
+import Routes from "./routes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />}></Route>
-      <Route path="register" element={<Register />}></Route>
-      <Route path="Dashboard/:name" element={<DashBoard />}></Route>
-      <Route path="*" element={<NotFound />}></Route>
-    </Routes>
+    <>
+      <GlobalStyles></GlobalStyles>
+      <Routes></Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      ></ToastContainer>
+    </>
   );
 }
 

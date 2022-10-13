@@ -1,24 +1,15 @@
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
-import { handleLogin } from "../../api/requests";
+import { Link } from "react-router-dom";
 import { LoginContainer } from "./styles";
-import { GlobalStyles } from "../../globalstyling";
 import logo from "../../assets/KenzieHubLogo.png";
-import { ToastContainer } from "react-toastify";
-
+import schema from "../../validations/loginUser";
 import "react-toastify/dist/ReactToastify.css";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 export const Login = () => {
-  const schema = yup.object().shape({
-    email: yup.string().required("email obrigatorio!").email("email invalido!"),
-
-    password: yup
-      .string()
-      .required("senha obrigatoria!")
-      .min(8, "minimo 8 digitos!"),
-  });
+  const { handleLogin } = useContext(UserContext);
 
   const {
     register,
@@ -34,11 +25,9 @@ export const Login = () => {
       console.log("deu errado");
     }
   };
-  const navigate = useNavigate();
 
   return (
     <LoginContainer>
-      <GlobalStyles></GlobalStyles>
       <img src={logo} alt="" />
       <form action="" onSubmit={handleSubmit(onSubmit)}>
         <h1>Login</h1>
@@ -64,27 +53,8 @@ export const Login = () => {
 
         <span>ainda nao tem uma conta?</span>
 
-        <button
-          className="register"
-          type="button"
-          onClick={() => {
-            navigate("register");
-          }}
-        >
-          Cadastrar
-        </button>
+        <Link to={"/register"}>Cadastre-se</Link>
       </form>
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      ></ToastContainer>
     </LoginContainer>
   );
 };
