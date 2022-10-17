@@ -6,8 +6,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 export const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
+  const [techs, setTechs] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,9 +19,9 @@ const UserProvider = ({ children }) => {
         try {
           api.defaults.headers.authorization = `Bearer ${userToken}`;
 
-          const userInfo = await api.get("/profile");
-
-          setUser(userInfo.data);
+          const { data } = await api.get("/profile");
+          setUser(data);
+          setTechs(data.techs);
         } catch (error) {
           localStorage.clear();
         }
@@ -68,7 +69,9 @@ const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ handleLogin, createUser, user, loading }}>
+    <UserContext.Provider
+      value={{ handleLogin, createUser, user, loading, techs, setTechs }}
+    >
       {children}
     </UserContext.Provider>
   );

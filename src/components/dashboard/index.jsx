@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import logo from "../../assets/KenzieHubLogo.png";
-import { GlobalStyles } from "../../globalstyling";
+import TechsContainer from "../techsContainer";
 import { DashBoardContainer } from "./styles";
 
 export const DashBoard = () => {
@@ -10,7 +10,7 @@ export const DashBoard = () => {
 
   function handleLogout() {
     localStorage.clear();
-    return navigate(-1);
+    return navigate("/");
   }
 
   return (
@@ -31,8 +31,7 @@ export const DashBoard = () => {
       </div>
 
       <div className="mainContainer">
-        <h2>Que pena! ainda estamos em desenvolvimento :(</h2>
-        <h3>Nossa aplicacao esta em desenvolvimento, em breve novidades</h3>
+        <TechsContainer></TechsContainer>
       </div>
     </DashBoardContainer>
   );

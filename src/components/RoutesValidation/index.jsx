@@ -7,9 +7,8 @@ const RoutesValidation = () => {
   const { user, loading } = useContext(UserContext);
 
   if (loading) {
-    return null;
+    return <h1>carregando...</h1>;
   } else {
-    console.log(user);
     return user ? (
       <Outlet />
     ) : (

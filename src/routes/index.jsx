@@ -16,7 +16,6 @@ const RoutesMain = () => {
 
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
-      ;
     </>
   );
 };

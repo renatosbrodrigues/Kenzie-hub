@@ -12,3 +12,16 @@ export const badNotify = (text) => {
     progress: undefined,
   });
 };
+
+export const goodNotify = (text) => {
+  toast.success(text, {
+    theme: "blue",
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
+};

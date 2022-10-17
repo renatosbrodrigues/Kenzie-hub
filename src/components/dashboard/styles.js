@@ -53,7 +53,10 @@ export const DashBoardContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+    height: 550px;
     padding: 20px;
+    background-color: var(--gray-4);
   }
 
   .mainContainer h3 {

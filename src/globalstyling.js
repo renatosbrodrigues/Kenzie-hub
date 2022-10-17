@@ -16,6 +16,9 @@ export const GlobalStyles = createGlobalStyle`
     --gray-3: #212529;
     --gray-2: #343B41;
     --gray-1: #868E96;
+    --gray-0: #F8F9FA;
+    --gradient-gray1: rgba(33, 37, 41, 0.8);
+    
 
     --sucess: #3FE864;
     --negative: #E83F5B;
@@ -26,6 +29,8 @@ export const GlobalStyles = createGlobalStyle`
     --base-radius: 4px;
 
 }
+
+button{cursor: pointer;}
 
 
 `;
