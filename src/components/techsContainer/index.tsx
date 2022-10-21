@@ -4,6 +4,12 @@ import { StylingTechContainer } from "./styles";
 import TechCard from "./TechCard";
 import Modal from "../NewTechModal/index";
 
+type techProps = {
+  title: string;
+  status: string;
+  id: string;
+};
+
 const TechsContainer = () => {
   const [modal, setModal] = useState(false);
 
@@ -27,7 +33,7 @@ const TechsContainer = () => {
       <div className="techContainerContent">
         {techs.length > 0 ? (
           <>
-            {techs.map((tech) => {
+            {techs.map((tech: techProps) => {
               return (
                 <TechCard
                   title={tech.title}

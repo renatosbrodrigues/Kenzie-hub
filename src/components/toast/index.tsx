@@ -1,8 +1,7 @@
 import { toast } from "react-toastify";
 
-export const badNotify = (text) => {
+export const badNotify = (text: string) => {
   toast.error(text, {
-    theme: "blue",
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -13,9 +12,8 @@ export const badNotify = (text) => {
   });
 };
 
-export const goodNotify = (text) => {
+export const goodNotify = (text: string) => {
   toast.success(text, {
-    theme: "blue",
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,

@@ -1,16 +1,35 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import api from "../services/api";
 import { goodNotify, badNotify } from "../components/toast";
 import { UserContext } from "./userContext";
-import TechCard from "../components/techsContainer/TechCard";
 
-export const TechContext = createContext({});
+interface iTechProviderProps {
+  children: React.ReactNode;
+}
 
-const TechProvider = ({ children }) => {
+interface iTechContext {
+  loading: boolean;
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  createTech: (data: object) => void;
+  deleteTech: (id: string) => void;
+}
+
+interface tTech {
+  title: string;
+  [id: string]: any;
+  status: string;
+}
+
+//verificar como estao armazenados os dados dentro de 'techs'
+//criar uma interface especifica pro parametro 'techs' de removedTech
+
+export const TechContext = createContext({} as iTechContext);
+
+const TechProvider = ({ children }: iTechProviderProps) => {
   const [loading, setLoading] = useState(true);
   const { techs, setTechs } = useContext(UserContext);
 
-  async function createTech(data) {
+  async function createTech(data: object) {
     try {
       const res = await api.post("/users/techs", data);
 
@@ -29,11 +48,11 @@ const TechProvider = ({ children }) => {
     setLoading((prevState) => !prevState);
   }
 
-  async function deleteTech(id) {
+  async function deleteTech(id: string) {
     try {
       const res = await api.delete(`users/techs/${id}`);
 
-      const removedTech = techs.filter((tech) => id !== tech.id);
+      const removedTech = techs.filter((tech: any) => id !== tech.id);
 
       setTechs(removedTech);
 

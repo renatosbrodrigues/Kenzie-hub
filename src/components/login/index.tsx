@@ -19,7 +19,7 @@ export const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: object) => {
     handleLogin(data);
     if (!handleLogin) {
       console.log("deu errado");
@@ -33,13 +33,13 @@ export const Login = () => {
         <h1>Login</h1>
         <label>
           Email
-          <p>{errors.email?.message}</p>
+          <p>{errors.email?.message as string | undefined}</p>
           <input type="email" placeholder="seu email" {...register("email")} />
         </label>
 
         <label>
           Senha
-          <p>{errors.password?.message}</p>
+          <p>{errors.password?.message as string | undefined}</p>
           <input
             type="password"
             placeholder="sua senha"

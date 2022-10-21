@@ -18,7 +18,7 @@ export const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: object) => {
     createUser(data);
   };
 
@@ -43,19 +43,19 @@ export const Register = () => {
 
         <label htmlFor="">
           nome
-          <p>{errors.name?.message}</p>
+          <p>{errors.name?.message as string | undefined}</p>
           <input type="text" placeholder="Seu nome" {...register("name")} />
         </label>
 
         <label htmlFor="">
           Email
-          <p>{errors.email?.message}</p>
+          <p>{errors.email?.message as string | undefined}</p>
           <input type="email" placeholder="Seu Email" {...register("email")} />
         </label>
 
         <label htmlFor="">
           Senha
-          <p>{errors.password?.message}</p>
+          <p>{errors.password?.message as string | undefined}</p>
           <input
             type="password"
             placeholder="Sua senha"
@@ -65,7 +65,7 @@ export const Register = () => {
 
         <label htmlFor="">
           Confirmar Senha
-          <p>{errors.confirmPassword?.message}</p>
+          <p>{errors.confirmPassword?.message as string | undefined}</p>
           <input
             type="password"
             placeholder="Digite novamente sua senha"
@@ -75,7 +75,7 @@ export const Register = () => {
 
         <label htmlFor="">
           Bio
-          <p>{errors.bio?.message}</p>
+          <p>{errors.bio?.message as string | undefined}</p>
           <input
             type="text"
             placeholder="Fale sobre voce"
@@ -85,7 +85,7 @@ export const Register = () => {
 
         <label htmlFor="">
           Contato
-          <p>{errors.contact?.message}</p>
+          <p>{errors.contact?.message as string | undefined}</p>
           <input
             type="text"
             placeholder="Opcao de contato"
@@ -94,7 +94,7 @@ export const Register = () => {
         </label>
 
         <span>Selecionar Modulo</span>
-        <select name="" id="" {...register("course_module")}>
+        <select id="" {...register("course_module")}>
           <option value="Primeiro módulo (Introdução ao Frontend)">
             1 modulo
           </option>

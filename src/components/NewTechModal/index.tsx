@@ -5,7 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useContext } from "react";
 import { TechContext } from "../../contexts/techContext";
 
-const NewTechModal = ({ setModal }) => {
+interface iNewTechModalProps {
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NewTechModal = ({ setModal }: iNewTechModalProps) => {
   const { createTech } = useContext(TechContext);
 
   const {
@@ -14,7 +18,7 @@ const NewTechModal = ({ setModal }) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: object) => {
     console.log(data);
     createTech(data);
   };
@@ -36,7 +40,7 @@ const NewTechModal = ({ setModal }) => {
         <form className="modalForm" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="">
             Nome
-            <p>{errors.title?.message}</p>
+            <p>{errors.title?.message as string | undefined}</p>
             <input
               type="text"
               placeholder="Nome da Tech"
@@ -45,7 +49,7 @@ const NewTechModal = ({ setModal }) => {
           </label>
           <label htmlFor="">
             Selecionar Status
-            <select name="" id="" {...register("status")}>
+            <select id="" {...register("status")}>
               <option value="Iniciante">Iniciante</option>
               <option value="Intermediário">Intermediário</option>
               <option value="Avançado">Avançado</option>

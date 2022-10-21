@@ -2,7 +2,13 @@ import { useContext } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { TechContext } from "../../../contexts/techContext";
 
-const TechCard = ({ title, status, id }) => {
+interface iTechCardProps {
+  title: string;
+  status: string;
+  id: string;
+}
+
+const TechCard = ({ title, status, id }: iTechCardProps) => {
   const { deleteTech } = useContext(TechContext);
 
   return (

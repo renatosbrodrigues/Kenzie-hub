@@ -1,14 +1,30 @@
-import { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import api from "../services/api";
 import { badNotify } from "../components/toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const UserContext = createContext({});
+interface iUserProviderProps {
+  children: React.ReactNode;
+}
 
-const UserProvider = ({ children }) => {
+interface iUserContext {
+  user: string;
+  setUser?: React.Dispatch<React.SetStateAction<string>>;
+  loading: boolean;
+  setLoading?: React.Dispatch<React.SetStateAction<boolean>>;
+  techs: Array<object>;
+  setTechs: React.Dispatch<React.SetStateAction<Array<object>>>;
+
+  handleLogin: (data: object) => void;
+  createUser: (data: object) => void;
+}
+
+export const UserContext = createContext({} as iUserContext);
+
+const UserProvider = ({ children }: iUserProviderProps) => {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
-  const [techs, setTechs] = useState([]);
+  const [techs, setTechs] = useState<object[]>([] as object[]);
   const location = useLocation();
 
   useEffect(() => {
@@ -24,6 +40,7 @@ const UserProvider = ({ children }) => {
           setTechs(data.techs);
         } catch (error) {
           localStorage.clear();
+          console.log(error);
         }
       }
       setLoading(false);
@@ -33,7 +50,7 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const navigate = useNavigate();
-  async function handleLogin(data) {
+  async function handleLogin(data: object) {
     try {
       const res = await api.post("/sessions", data);
 
@@ -56,7 +73,7 @@ const UserProvider = ({ children }) => {
     }
   }
 
-  async function createUser(data) {
+  async function createUser(data: object) {
     try {
       const register = await api.post("/users", data);
       const info = register.data;
